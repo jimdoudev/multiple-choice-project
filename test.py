@@ -116,7 +116,7 @@ def load_a(filename):
     file = open(filename, "r")
     temp_lines = file.readlines()
     for x in range(0, len(temp_lines), 4):
-        lines.append([temp_lines[x][:-1] + "\n" + temp_lines[x+1][:-1] + "\n" + temp_lines[x+2][:-1] + "\n" + temp_lines[x+3][:-1], 
+        lines.append([temp_lines[x][:-2] + "\n" + temp_lines[x+1][:-2] + "\n" + temp_lines[x+2][:-2] + "\n" + temp_lines[x+3][:-2], 
         temp_lines[x][-2] + temp_lines[x+1][-2] + temp_lines[x+2][-2] + temp_lines[x+3][-2]])
     return lines
 
