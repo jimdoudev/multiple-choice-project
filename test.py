@@ -3,20 +3,20 @@
 #TODO create shuffle lists (with zip - https://stackoverflow.com/questions/23289547/shuffle-two-list-at-once-with-same-order)----
 #TODO create basic functionality-----
 #TODO create grade system-----
-#TODO make folders in directory
+#TODO make folders in directory-----
 #TODO write comments on code
 
 
 import os, time, random
 
-#clear console
+#clear console / Ελέγχει τον τύπο os και καθαρίζει την κονσόλα
 def clearConsole():
     command = 'clear'
     if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
         command = 'cls'
     os.system(command)
 
-#visuals
+#Visuals / δημιουργεί τα διάφορα οπτικά εφέ
 def visuals(filename):
     clearConsole()
     file = open("visuals/"+filename, "r")
@@ -26,8 +26,9 @@ def visuals(filename):
         time.sleep(0.05)
     time.sleep(1.5)
 
-#intro
+#Ιntro / Εισαγωγή του ερωτηματολογίου
 def intro():
+    clearConsole()
     visuals("intro.txt")
     print("\n\nΚαλωσήλθατε στην άσκηση πολλαπλών επιλογών για την ασφάλεια στο διαδίκτυο\n\n")
     name = input("Εισάγετε το ονοματεπώνυμό σας για να συνεχίσετε: ")
@@ -36,9 +37,11 @@ def intro():
         time.sleep(0.8)
     print("Το όνομα σας καταχωρήθηκε με επιτυχία. Πατήστε enter για να ξεκινήσετε...")
     input()
+    clearConsole()
     return name
+    
 
-#examination
+#Examination / Λογική της εξέτασης / +20 για σωστή απάντηση - +10 για σωστή 2η ευκαιρία - 0 για λάθος
 def examination(lines_q, lines_a):
     answers = ["α", "β", "γ", "δ"]
     score = 0
@@ -72,7 +75,7 @@ def examination(lines_q, lines_a):
             clearConsole()
     return score
 
-#evaluation
+#Evaluation - Γενική αξιολόγηση βάσει απόδοσης στην εξέταση
 def eval(lines, name):
     visuals("eval.txt")
     print("\n\n")
@@ -89,7 +92,7 @@ def eval(lines, name):
         print("Μάλλον κάποιος δεν διάβασε όσο έπρεπε " , name, "! Διάβασε την ύλη και προσπάθησε ξανα!\n")
     time.sleep(1)
 
-#evaluation per unit
+#Evaluation per unit - Ειδική αξιολόγηση βάσει απόδοση σε κάθε ξεχωριστή θεματική ενότητα
 def unit_eval(lines):
     units = ["Μαθαίνω να προστατεύομαι", "Αποκαλύπτω με προσοχη...", "Τα φαινόμενα απατούν"]
     print("Συγκεκριμένα:\n")
@@ -107,7 +110,7 @@ def unit_eval(lines):
         time.sleep(1)
         index += 1
 
-#load questions
+#Load questions - Φορτώνει τις ερωτήσεις της ορισθείσας θεματικής ενότητας και τις επιστρέφει σε μορφή λίστας
 def load_q(filename):
     lines = []
     file = open(filename, "r")
@@ -116,7 +119,7 @@ def load_q(filename):
         lines.append(line[:-1])
     return lines
 
-#load answers
+#Load answers - Φορτώνει τις απαντήσεις της ορισθείσας θεματικής ενότητας και τις επιστρέφει σε μορφή λίστας
 def load_a(filename):
     lines = []
     file = open(filename, "r")
@@ -126,13 +129,13 @@ def load_a(filename):
         temp_lines[x][-2] + temp_lines[x+1][-2] + temp_lines[x+2][-2] + temp_lines[x+3][-2]])
     return lines
 
-#shuffle questions
+#Shuffle questions - Ανακατεύει ερωτήσεις και απαντήσεις με τον ίδιο τρόπο, ώστε να μην χαθεί η αντιστοιχία των indexes
 def shuffle(q1, a1, q2, a2, q3, a3):
     temp = list(zip(q1, a1, q2, a2, q3, a3))
     random.shuffle(temp)
     return temp
 
-#main program
+#Μain program - 
 def main():
     asfaleia_q = load_q("q&a/asfaleia_q.txt")
     asfaleia_a = load_a("q&a/asfaleia_a.txt")
@@ -143,9 +146,7 @@ def main():
     temp = shuffle(asfaleia_q, asfaleia_a, personal_q, personal_a, strangers_q, strangers_a)
     asfaleia_q, asfaleia_a, personal_q, personal_a, strangers_q, strangers_a = zip(*temp)
     evaluation = []
-    clearConsole()
     name = intro()
-    clearConsole()
     score = examination(asfaleia_q, asfaleia_a)
     evaluation.append(score)
     score = examination(personal_q, personal_a)
