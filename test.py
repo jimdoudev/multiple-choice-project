@@ -1,12 +1,3 @@
-#TODO create intro -----
-#TODO introduce diffenent weight per answer - change load answers--------
-#TODO create shuffle lists (with zip - https://stackoverflow.com/questions/23289547/shuffle-two-list-at-once-with-same-order)----
-#TODO create basic functionality-----
-#TODO create grade system-----
-#TODO make folders in directory-----
-#TODO write comments on code
-
-
 import os, time, random
 
 #clear console / Ελέγχει τον τύπο os και καθαρίζει την κονσόλα
